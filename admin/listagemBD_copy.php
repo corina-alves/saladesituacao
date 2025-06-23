@@ -1,42 +1,36 @@
-<?php include "conexao.php"; ?>
+<?php include "auth.php"; include "../conexao.php"; ?>
+<?php 
+// Configurações
+$por_pagina = 10;
 
-<?php
-$por_pagina = 3;
+// Página atual
 $pagina = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
 $inicio = ($pagina - 1) * $por_pagina;
 
-$busca = isset($_GET['busca']) ? trim($conn->real_escape_string($_GET['busca'])) : '';
-
-$where = '';
-// Verifica se a busca é uma data no formato dd/mm/yyyy
-if (preg_match('/^\d{2}\/\d{2}\/\d{4}$/', $busca)) {
-    // Converte para yyyy-mm-dd
-    $partes = explode('/', $busca);
-    $data_convertida = $partes[2] . '-' . $partes[1] . '-' . $partes[0];
-    $where = "WHERE data_upload = '$data_convertida'";
-} elseif (!empty($busca)) {
-    // Busca por nome do arquivo
-    $where = "WHERE nome LIKE '%$busca%' OR arquivo LIKE '%$busca%'";
-}
-
-// Total de registros com ou sem filtro
-$total_query = $conn->query("SELECT COUNT(*) as total FROM boletins $where");
+// Total de registros
+$total_query = $conn->query("SELECT COUNT(*) as total FROM boletins");
 $total_result = $total_query->fetch_assoc();
 $total = $total_result['total'];
 $total_paginas = ceil($total / $por_pagina);
 
 // Consulta paginada
-$sql = "SELECT * FROM boletins $where ORDER BY data_upload DESC LIMIT $inicio, $por_pagina";
+$sql = "SELECT * FROM boletins ORDER BY data_upload DESC LIMIT $inicio, $por_pagina";
 $result = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Listagem de Boletins</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta name="description" content="Boletins diários e mensais de pluviais e estiagem de monitoramento da rede hidrologica do Estado de São Paulo.">
+
+  <title>Sala de Situação do estado de São paulo - Sobre</title>
+  <meta content="radares, satelites e redes telemétricos" name="description">
+  <meta content="" name="keywords">
+  <link href="../assets/img/logo/logo.png" rel="icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" integrity="sha512-1cK78a1o+ht2JcaW6g8OXYwqpev9+6GqOkz9xmBN9iUUhIndKtxwILGWYOSibOKjLsEdjyjZvYDq/cZwNeak0w==" crossorigin="anonymous" referrerpolicy="no-referrer" /> 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" integrity="sha512-jnSuA4Ss2PkkikSOLtYs8BlYIeeIK1h99ty4YfvRPAlzr377vr3CXDb7sb7eEEBYjDtcYj+AjBH3FLv5uSJuXg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" integrity="sha512-dPXYcDub/aeb08c63jRq/k6GaKccl256JQy/AnOq7CAnEZ9FzSL9wSbcZkMp4R26vBsMLFYH4kQ67/bbV8XaCQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -47,8 +41,8 @@ $result = $conn->query($sql);
   
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.css">
-  <link href="assets/css/style.css" rel="stylesheet">
-  <link href="assets/css/sobre.css" rel="stylesheet">
+
+  <link href="../assets/css/style.css" rel="stylesheet">
   <script>
     
     window.addEventListener("scroll", function() {
@@ -62,78 +56,101 @@ $result = $conn->query($sql);
     
     </script>
 </head>
+
 <body>
- <?php include "menuspgov.php";?>
-  <header id="header" class="header  sticky-top"><?php include "nav.php";?></header>
-   <div class="container">
+  <header id="header" class="header  sticky-top">
+    <div class="container d-flex align-items-center justify-content-between">
+        <div class="logo"><img src="../img/logosssp.png"></div>
+             <nav id="navbar" class="navbar ">
+                <ul>
+                    <li><a href="../index.php">Home</a></li>
+                    <li><a href="painel.php">Painel</a></li>
+                    <li><a href="enviarBD.php">Enviar BD</a></li>
+              
+                    <li><a href="logout.php">SAIR</a></li>
+                </ul>
+            </nav>
+    </div>
+  </header>
+<section class="boletins section">
+    <img src="../assets/img/posts/boletimDesk.png" alt="" data-aos="fade-in">
+   <div class="container areaBoletins">
         <div class="row">
-        <div class="col-lg-12 p-5" data-aos="fade-up"> 
-             
-            <h1 class="text-center"><strong>Boletins Diários</strong></h1>
-<div class="div-scroll">
-    <!-- Formulário de busca -->
-    <form method="GET" class="mb-4 d-flex">
-        <input type="text" name="busca" class="form-control me-2" placeholder="Buscar por nome ou data (dd/mm/aaaa)" value="<?= htmlspecialchars($busca) ?>">
-        <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
-        <a href="boletinsDiario.php" type="button" class="btn btn-secundary">Limpar</a>
-    </form>
-    <table class="table table-striped table-hover">
-        <a href="https://drive.google.com/drive/folders/0B4yicqLa_Dj8YTE5ZDUyNTItMjkzYS00ZGJlLTg2M2ItZTI0ZjRjODQ3ZDNk?resourcekey=0-n6Kjkz-jNDVJdgI1dJ1A1A" class="btn btn-primary" target="_blank">
-                Boletins Anteriores
-            </a>
-        <thead>
-            <tr>
-                <th>Data de Publicação</th>
-                <th>Visualizar</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php if ($result->num_rows > 0): ?>
-                <?php while ($row = $result->fetch_assoc()): ?>
-                <tr>
-                    <td><?= date('d/m/Y', strtotime($row['data_upload'])) ?></td>
-                    <td><a href="uploads/<?= $row['arquivo'] ?>" target="_blank">Visualizar</a></td>
-                    
-                </tr>
-                <?php endwhile; ?>
-            <?php else: ?>
-                <tr>
-                    <td colspan="3">Nenhum boletim encontrado.</td>
-                </tr>
-            <?php endif; ?>
-        </tbody>
-    </table>   
- </div>     
-<!-- Paginação -->
+        <div class="col-lg-12 p-3" data-aos="fade-up"> 
+            <h1><strong>Boletins Diários</strong></h1>
+        <div class="col-lg-2 offset-lg-10">
+            
+        <a href="enviarBD.php" class="btn btn-sm btn-primary"><i class="bi bi-pencil"></i> Cadatrar</a></div>
+
+            <a href="https://drive.google.com/drive/folders/0B4yicqLa_Dj8YTE5ZDUyNTItMjkzYS00ZGJlLTg2M2ItZTI0ZjRjODQ3ZDNk?resourcekey=0-n6Kjkz-jNDVJdgI1dJ1A1A" target=_blank type="button" class="btn btn-outline-primary">Boletins Anteriores</a>
+            <div class="div-scroll" style="border:solid 0px #F00; overflow: auto; width: 1200px; height: 400px;">
+                <table border="1" cellpadding="10" cellspacing="0"  class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <!-- <th>Boletim</th> -->
+                            <th>Data de Publicação </th>
+                            <th>Visualizar</th>
+                            <th>Opções</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php while ($row = $result->fetch_assoc()): ?>
+                            <tr>
+                                <!-- <td><?= $row['nome'] ?></td> -->
+                                <td><?= date('d/m/Y', strtotime($row['data_upload'])) ?></td>
+                                <td><a href="../uploads/<?= $row['arquivo'] ?>" target="_blank" title="<?=$row['data_upload']?>">Visualizar</a></td>
+                                <td>
+
+                                    <a href="editarBD.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i> Editar</a>
+                                    <a href="excluirBD.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Deseja realmente excluir este boletim?');"><i class="bi bi-trash"></i> Excluir </a>
+                                </td>
+                            </tr>
+
+                        <?php endwhile; ?>
+                    </tbody>
+                </table>
+             </div>
+
+    <!-- Paginação -->
 <div class="col-lg-8 col-offset-lg-2">
-    <nav>
+    <nav aria-label="Page navigation example" style="text center">
         <ul class="pagination">
-            <?php if ($pagina > 1): ?>
-            <li class="page-item">
-                <a class="page-link" href="?pagina=<?= $pagina - 1 ?>&busca=<?= urlencode($busca) ?>">&laquo;</a>
-            </li>
+            <li class="page-item"><!--botão anterior-->
+            <?php if ($pagina > 1): ?> 
+            <a class="page-link" href="?pagina=<?= $pagina - 1 ?>" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
             <?php endif; ?>
-
-            <?php for ($i = 1; $i <= $total_paginas; $i++): ?>
-            <li class="page-item <?= ($i == $pagina) ? 'active' : '' ?>">
-                <a class="page-link" href="?pagina=<?= $i ?>&busca=<?= urlencode($busca) ?>"><?= $i ?></a>
             </li>
-            <?php endfor; ?>
 
+            <li class="page-item">
+                    <?php
+                    for ($i = 1; $i <= $total_paginas; $i++) {
+                        if ($i == $pagina) {
+                            // echo "<strong> $i </strong>";
+                        } else {
+                            echo " <a class='page-link' href='?pagina=$i' class='page-link'> $i</a> ";
+                        }
+                    }
+                    ?>
+            </li>
+
+            <li class="page-item"><!--proximo-->
             <?php if ($pagina < $total_paginas): ?>
-            <li class="page-item">
-                <a class="page-link" href="?pagina=<?= $pagina + 1 ?>&busca=<?= urlencode($busca) ?>">&raquo;</a>
-            </li>
+            <a class="page-link" href="?pagina=<?= $pagina + 1 ?>" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
             <?php endif; ?>
+            </li>
         </ul>
     </nav>
-</div> 
+</div>
+</div>
+</section>
 
- </div>
-        </div></div>
     <!-- ======= Footer ======= -->
   <footer id="footer" class="" style="margin-top: 10px;">
-  <?php include "footer.php";?>
+  <?php include "../footer.php";?>
   </footer>
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
@@ -149,6 +166,10 @@ $result = $conn->query($sql);
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
   crossorigin="anonymous"></script>
-  <script src="assets/js/main.js"></script>
+  <script src="../assets/js/main.js"></script>
+
+
+  
 </body>
+
 </html>

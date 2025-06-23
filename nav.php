@@ -1,7 +1,9 @@
  <div class="container d-flex align-items-center justify-content-between">
 
            <div class="logo">
-        <a href="index.html"><img src="	http://www.daee.sp.gov.br/site/wp-content/uploads/2024/09/SP-4.png" style="width="auto; height="503px"; class="logo"></a>
+        <!-- <a href="index.php"><img src="	http://www.daee.sp.gov.br/site/wp-content/uploads/2024/09/SP-4.png" style="width="auto; height="503px"; class="logo"></a> -->
+        <a href="index.php"><img src="img/logosssp.png"></a>
+
       </div>
 
       <nav id="navbar" class="navbar ">
