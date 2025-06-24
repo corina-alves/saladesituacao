@@ -11,6 +11,7 @@
           <ul>
             <li><a href="boletinsDiario.php" target=_blank>Boletins Diários</a></li>
             <li><a href="boletinsMensais.php" target=_blank>Boletins Mensais</a></li>
+            <li><a href="boletinsHidrologico.php" target=_blank>Boletins Hidrologico</a></li>
           </ul>
           
            <h4>-</h4>
@@ -67,7 +68,7 @@
 
   
     <div class="copyright">
-      &copy;  <strong><span>SSSP/ SP Águas</span></strong>.
+       <strong><span>Sala de Situação do Estado de São Paulo (SSSP/ SP Águas)</span></strong>.
     </div>
     <div class="credits">
 

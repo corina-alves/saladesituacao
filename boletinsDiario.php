@@ -34,7 +34,8 @@ $result = $conn->query($sql);
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Listagem de Boletins</title>
+  <title>Boletins Diário</title>
+  <link href="assets/img/logo/logo.png" rel="icon">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" integrity="sha512-1cK78a1o+ht2JcaW6g8OXYwqpev9+6GqOkz9xmBN9iUUhIndKtxwILGWYOSibOKjLsEdjyjZvYDq/cZwNeak0w==" crossorigin="anonymous" referrerpolicy="no-referrer" /> 
@@ -65,11 +66,22 @@ $result = $conn->query($sql);
 <body>
  <?php include "menuspgov.php";?>
   <header id="header" class="header  sticky-top"><?php include "nav.php";?></header>
-   <div class="container">
+          <section class="top-hero-boletins">
+        <img class="img-fluid" src="assets/img/posts/BD.png">
+          <div class="container">
+            <div class="row">
+       <div class="col-lg-6 offset-lg-6" data-aos="fade-right">
+          <h1><strong>Boletins Diário</strong></h1>
+          <p>Acompanhe os Boletins Diários da SSSP, gerados com dados de radares, satelites e rede telemétrica do Estado.
+        </div>
+  
+        </div>
+        </div>
+    </section> 
+  <div class="container">
         <div class="row">
         <div class="col-lg-12 p-5" data-aos="fade-up"> 
              
-            <h1 class="text-center"><strong>Boletins Diários</strong></h1>
 <div class="div-scroll">
     <!-- Formulário de busca -->
     <form method="GET" class="mb-4 d-flex">

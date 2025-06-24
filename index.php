@@ -168,11 +168,11 @@
                 </h5>
               </div>
             </li>
-            <li>
+            <!-- <li>
               <div class="button">
               <a href="objetivo.php" class="btn btn-tranparent" data-aos="fade-up" style="border:solid 1px #000; color:#000">Leia mais →</a>
               </div>
-            </li>
+            </li> -->
           </ul>
         </div>
       </div>
