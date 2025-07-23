@@ -1,4 +1,25 @@
 <?php include "auth.php"; include "../conexao.php"; ?>
+<?php
+session_start();
+if (!isset($_SESSION['id'])) {
+    header("Location: login.php");
+    exit;
+}
+?>
+
+<h2>Olá, <?php echo $_SESSION['usuario']; ?>!</h2>
+
+<?php
+if ($_SESSION['tipo_permissao'] === 'boletim') {
+    echo '<a href="cadastrar_boletim.php">Cadastrar Boletim</a><br>';
+    echo '<a href="visualizar_boletins.php">Visualizar Boletins</a><br>';
+}
+
+if ($_SESSION['tipo_permissao'] === 'hidrologico') {
+    echo '<a href="cadastrar_dados_hidrologicos.php">Cadastrar Dados Hidrológicos</a><br>';
+}
+?>
+
 <!DOCTYPE html>
 <html>
 <head><meta charset="UTF-8"><title>Dashboard</title></head>
@@ -69,6 +90,7 @@
     </div>
    
   </div>
+  
   <div class="col">
     <div class="card h-100">
       <div class="card-body">
@@ -80,9 +102,26 @@
       <div class="card-footer">
         <small class="text-body-secondary"><?php echo date('d/m/Y H:i:s'); ?></small>
       </div>
+
     </div>
+    
 
   </div>
+
+  <div class="col">
+    <div class="card h-100">
+        <div class="card-body">
+            <h5 class="card-title"><strong> OPERADORES DE HIDROLOGICO  </strong></h5>
+            <p class="card-text">Inserção de <strong>dados hidrologicos</strong>no site da sala de situação do Estado de São Paulo</p>
+            <a href="cadastrodados.php" class="btn btn-sm btn-primary"><i class="bi bi-folder-symlink"></i> Cadastrar</a>
+
+            <a href="lista.php" class="btn btn-sm btn-warning"><i class="bi bi-eye"></i> Visualizar</a>
+        </div>
+        <div class="card-footer">
+            <small class="text-body-secondary"><?php echo date('d/m/Y H:i:s'); ?></small>
+        </div>
+        </div>
+  </div> 
 
   </section>
 

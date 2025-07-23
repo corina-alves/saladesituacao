@@ -1,7 +1,7 @@
 <?php include "conexao.php"; ?>
 
 <?php
-$por_pagina = 3;
+$por_pagina = 10;
 $pagina = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
 $inicio = ($pagina - 1) * $por_pagina;
 
@@ -49,7 +49,7 @@ $result = $conn->query($sql);
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.css">
   <link href="assets/css/style.css" rel="stylesheet">
-  <link href="assets/css/sobre.css" rel="stylesheet">
+  <!-- <link href="assets/css/sobre.css" rel="stylesheet"> -->
   <script>
     
     window.addEventListener("scroll", function() {

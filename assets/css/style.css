@@ -2812,10 +2812,9 @@ background-color:#356adc;
   text-align: center;
 }
 section.upload .container{
-  background: #fffdfd;
-  padding: 30px;
+  background: #c7c4c4;
+  padding: 40px;
   border-radius: 5px;
-  border: #000 1px solid;
 }
 .btn.btn-outline-primary {
   display: inline-block;

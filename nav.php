@@ -2,7 +2,7 @@
 
            <div class="logo">
         <!-- <a href="index.php"><img src="	http://www.daee.sp.gov.br/site/wp-content/uploads/2024/09/SP-4.png" style="width="auto; height="503px"; class="logo"></a> -->
-        <a href="index.php"><img src="img/logosssp.png"></a>
+        <a href="index.php"><img src="img/logo.png"></a>
 
       </div>
 
@@ -13,7 +13,14 @@
         <!-- <li><a href="noticias.php">Notícias</a></li> -->
         <li><a href="visitas.php">Visitas</a></li>
         <li><a href="sssp.php">Salas de Situação</a></li>
-          
+             <!-- <li class="dropdown"><a href="#"><span>Salas de Situação</span> <i class="bi bi-chevron-down"></i></a>
+                <ul>
+                  <li><a href="#">SS-SP - São Paulo</a></li>
+                    <li><a href="#">SS-PCJ - Piracicaba</a></li>
+                    <li><a href="#">SS-UNISANTA - Baixada Santista</a></li>
+                    <li><a href="#">SS-REG - Registro</a></li>
+                </ul>
+            </li> -->
           <!-- <li class="dropdown"><a href="#"><span>Sala de Situação</span> <i class="bi bi-chevron-down"></i></a>
           <ul>
             <li><a href="sobre.html">Sobre</a></li>

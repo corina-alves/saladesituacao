@@ -1,3 +1,19 @@
+CREATE TABLE usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100),
+    email VARCHAR(100) UNIQUE,
+    senha VARCHAR(255),
+    tipo_permissao ENUM('boletim', 'hidrologico') NOT NULL
+);
+
+INSERT INTO usuarios(id, nome, email, senha, tipo_permissao) VALUES('','Corina','corina@hotmail.com',sha1('1234'),'boletim');
+
+Inserir usuário
+
+INSERT INTO admin (id, usuario, senha, tipo_permissao) 
+VALUES (NULL, 'Corina', SHA1('1234'), 'hidrologico');
+
+
 -- phpMyAdmin SQL Dump
 -- version 5.2.1
 -- https://www.phpmyadmin.net/

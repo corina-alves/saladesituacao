@@ -1,4 +1,4 @@
-<?php
+<!--?php
 session_start();
 include "../conexao.php";
 
@@ -19,38 +19,39 @@ if ($_POST) {
         $erro = "Usuário ou senha inválidos!";
     }
 }
-?>
-<!--?php
+?-->
+<?php
 session_start();
 include("../conexao.php");
 
-if ($_POST) {
-    $usuario = $_POST["usuario"];
-    $senha = sha1($_POST["senha"]); // <<< mesma criptografia usada no cadastro
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = $_POST['email'];
+    $senha = sha1($_POST['senha']);
 
-    $stmt = $conn->prepare("SELECT id, usuario, tipo_permissao FROM admin WHERE usuario = ? AND senha = ?");
-    $stmt->bind_param("ss", $usuario, $senha);
+    $stmt = $conn->prepare("SELECT id, nome, senha, tipo_permissao FROM usuarios WHERE email = ?");
+    $stmt->bind_param("s", $email);
     $stmt->execute();
     $stmt->store_result();
 
     if ($stmt->num_rows > 0) {
-        $stmt->bind_result($id, $usuario, $tipo_permissao);
+        $stmt->bind_result($id, $nome, $hash, $tipo_permissao);
         $stmt->fetch();
 
-        $_SESSION['id'] = $id;
-        $_SESSION['usuario'] = $usuario;
-        $_SESSION['tipo_permissao'] = $tipo_permissao;
-
-        header("Location: painel.php");
-        exit;
+        if (password_verify($senha, $hash)) {
+            $_SESSION['usuario_id'] = $id;
+            $_SESSION['usuario_nome'] = $nome;
+            $_SESSION['permissao'] = $tipo_permissao;
+            header("Location: dashboard.php");
+            exit;
+        } else {
+            echo "Senha incorreta!";
+        }
     } else {
-        echo "Usuario ou senha inválidos.";
+        echo "Usuário não encontrado!";
     }
-
-    // $stmt->close();
-    // $conn->close();
 }
-?-->
+?>
+
 
 <!DOCTYPE html>
 <html>
@@ -80,8 +81,8 @@ if ($_POST) {
     <?php if (isset($erro)) echo "<p style='color:red'>$erro</p>"; ?>
     <div class="col-md-4 offset-md-4 telaLogin">
   <div class="mb-3">
-    <label for="usuario" class="form-label">Usuário</label>
-    <input type="text" name="usuario" placeholder="Usuário" class="form-control" id="usuario" aria-describedby="usuario" required>
+    <label for="email" class="form-label">Usuário</label>
+    <input type="text" name="email" placeholder="Usuário" class="form-control" id="email" aria-describedby="usuario" required>
   </div>
   <div class="mb-3">
     <label for="senha" class="form-label">Senha</label>
