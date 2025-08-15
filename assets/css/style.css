@@ -944,7 +944,10 @@ section,
   font-size: 2rem;
   font-weight: 700;
 }
-
+.objetivo h5{
+  text-align: center;
+  
+}
 .objetivo .content ul {
   list-style:none;
   padding: 0;
@@ -1838,12 +1841,12 @@ border: solid 1px #000;
 # produtos
 --------------------------------------------------------------*/
 .produtos.section{
-  padding: 60px;
+  padding: 40px;
  
 }
 .produtos {
   text-align: center;
-  padding: 50px 20px;
+  padding: 0px 0px;
   height: 100%;
   transition: all ease-in-out 0.3s;
 

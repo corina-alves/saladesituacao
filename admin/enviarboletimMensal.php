@@ -13,9 +13,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/glightbox/3.3.0/css/glightbox.min.css" integrity="sha512-T+KoG3fbDoSnlgEXFQqwcTC9AdkFIxhBlmoaFqYaIjq2ShhNwNao9AKaLUPMfwiBPL0ScxAtc+UYbHAgvd+sjQ==" crossorigin="anonymous" referrerpolicy="no-referrer" /> 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.css" integrity="sha512-pmAAV1X4Nh5jA9m+jcvwJXFQvCBi3T17aZ1KWkqXr7g/O2YMvO8rfaa5ETWDuBvRq6fbDjlw4jHL44jNTScaKg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" /><!--maps--->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.css">
-  
+ 
   <link href="../css/style.css" rel="stylesheet">
   <link href="../assets/css/style.css" rel="stylesheet">
 </head>
@@ -70,7 +68,7 @@
             $stmt->execute();
             // echo "<p>Boletim enviado com sucesso!</p>";
              echo "<p style='color:green'>Boletim enviado com sucesso! Redirecionando para a página principal...</p>";
-        echo "<script>setTimeout(() => { window.location.href = '../boletinsMensal.php'; });</script>";
+        echo "<script>setTimeout(() => { window.location.href = '../boletinsMensais.php'; });</script>";
         } else {
             echo "<p style='color:red'>Erro ao enviar o arquivo.</p>";
         }
